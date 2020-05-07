@@ -4,6 +4,8 @@ Covid19 minimal Tracker made with React.
 
 API: https://github.com/mathdroid/covid-19-api
 
+![tracker-19 screenshot](https://raw.githubusercontent.com/n0thinghs/tracker-19/master/screenshot.jpg)
+
 ## Available Scripts
 
 In the project directory, you can run:
