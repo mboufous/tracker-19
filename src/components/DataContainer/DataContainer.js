@@ -4,13 +4,14 @@ import CountrySelect from '../CountrySelect';
 import fetchData from './dataContainer.api';
 import DataEntry from './DataEntry';
 import { LoadingOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import LastUpdateDate from '../LastUpdateDate';
 
-const initialState = { cases: null, loading: true };
+const initialState = { cases: null, loading: true, lastUpdateDate: null };
 
 function reducer(state, action) {
 	switch (action.type) {
 		case 'FETCHING_DONE':
-			return { cases: action.cases, loading: false };
+			return { cases: action.cases, loading: false, lastUpdateDate: action.lastUpdateDate };
 		case 'FETCHING_ERROR':
 			return { cases: action.cases, loading: false };
 		default:
@@ -33,7 +34,8 @@ function DataContainer() {
 					message.success('Loading success', 1);
 					dispatch({
 						type: 'FETCHING_DONE',
-						cases: data
+						cases: data.cases,
+						lastUpdateDate: data.lastUpdateDate
 					});
 				})
 				.catch((err) => {
@@ -47,7 +49,7 @@ function DataContainer() {
 		},
 		[ countryCode ]
 	);
-	const { cases, loading } = state;
+	const { cases, loading, lastUpdateDate } = state;
 	const dataEntries =
 		cases &&
 		Object.keys(cases).map((key, index) => (
@@ -66,6 +68,7 @@ function DataContainer() {
 			) : (
 				<ExclamationCircleOutlined style={{ color: 'red' }} />
 			)}
+			<Row style={{ marginTop: 20 }}>{lastUpdateDate && <LastUpdateDate date={lastUpdateDate} />}</Row>
 		</Card>
 	);
 }
